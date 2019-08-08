@@ -9,9 +9,8 @@ import matplotlib.pyplot as plt
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import Model, Input
 from keras.layers.merge import add
-from keras.layers import LSTM, Embedding, Dense, TimeDistributed, Dropout, Bidirectional, Lambda
-from seqeval.metrics import precision_score, recall_score, f1_score, classification_report
-
+from keras.layers import LSTM, Dense, TimeDistributed, Bidirectional, Lambda
+from seqeval.metrics import classification_report
 
 class sentenceGetter:
     '''
@@ -47,7 +46,7 @@ class sentenceGetter:
     def plot_sentence_based_on_length(self):
         # Distribution of the length of the sentences
         plt.style.use("ggplot")
-        plt.hist([len(sen) for sen in sentences], bins=50)
+        plt.hist([len(sen) for sen in self.sentences], bins=50)
         plt.show()
 
 
