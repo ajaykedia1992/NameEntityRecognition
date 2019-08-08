@@ -9,6 +9,12 @@ In this project, I used BERT(Bidirectional Encoder Representations from Transfor
 
 ![Figure 1: NER using BERT](https://www.vamvas.ch/wp-content/uploads/2019/06/bert-for-ner-768x661.png)
 
+# Environment:
+I run the code on Google cloud using n1-standard-8 (8 vCPUs, 30 GB memory). 
+
+Main File: bert.py
+command to run: nohup python3 bert.py > bert_logs.out &
+
 # Embedding
 
 For Embedding, I used ELMo (Embedding from Language Models) which has three important representation: 
@@ -39,8 +45,8 @@ import matplotlib.pyplot as plt
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import Model, Input
 from keras.layers.merge import add
-from keras.layers import LSTM, Embedding, Dense, TimeDistributed, Dropout, Bidirectional, Lambda
-from seqeval.metrics import precision_score, recall_score, f1_score, classification_report
+from keras.layers import LSTM, Dense, TimeDistributed, Bidirectional, Lambda
+from seqeval.metrics import classification_report
 ```
 
 ## Dataset Information
