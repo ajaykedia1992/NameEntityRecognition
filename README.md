@@ -49,21 +49,7 @@ Here, we are going to extract the information of the biological based dataset
 data = pd.read_csv('train.csv', encoding = 'utf8')
 data = data.drop(['POS'], axis =1)
 data = data.fillna(method="ffill")
-
-
-# Total Number of words count
-words = set(list(data['Word'].values))
-words.add('PADDING')
-n_words = len(words)
-print("Total number of words = " + str(n_words))
-
-# Total Number of tags count
-tags = list(set(data["Tag"].values))
-n_tags = len(tags)
-print("Total number of tags = " + str(n_tags))
 ```
-So,  
-Total number of words = 6363, Total number of tags = 20
 
 ## Information about the sentences
 I started getting the information about the sentences based on their tags and group by them in a tuple.
@@ -89,9 +75,29 @@ class sentenceGetter:
         except:
             return None
 
+    def wordTag(self):
+        words = set(list(self.data['Word'].values))
+        words.add('PADword')
+        tags = list(set(self.data["Tag"].values))
+        return words, tags, len(words), len(tags)
+
+    def find_largest_sentence(self):
+        # Largest sentence Length
+        largest_sen = max(len(sen) for sen in self.sentences)
+        print('biggest sentence has {} words'.format(largest_sen))
+
+    def plot_sentence_based_on_length(self):
+        # Distribution of the length of the sentences
+        plt.style.use("ggplot")
+        plt.hist([len(sen) for sen in self.sentences], bins=50)
+        plt.show()
+
 getter = sentenceGetter(data)
 sent = getter.get_next()
+words, tags, n_words, n_tags = getter.wordTag()
+sentences = getter.sentences
 ```
+Total no. of words = 6363 and total no. of tags = 20
 
 I created a class called sentenceGetter which is used to extract the words from the text and groupby them with their tags. A simple snippet of the result shown below
 ```
@@ -103,7 +109,7 @@ Then, I started trying to find out the longest sentence in the sentences for pad
 
 ```python
 # Largest sentence Length
-largest_sen = max(len(sen) for sen in sentences)
+largest_sen = getter.find_largest_sentence()
 print('biggest sentence has {} words'.format(largest_sen))
 ```
 
@@ -111,9 +117,7 @@ The longest sentence has 122 words. Then, I plot a graph to find out what would 
 
 ```python
 # Distribution of the length of the sentences
-plt.style.use("ggplot")
-plt.hist([len(sen) for sen in sentences], bins=50)
-plt.show()
+getter.plot_sentence_based_on_length()
 ```
 A digram to show the distribution the words in the sentences
 ![Distribution of the words](https://github.com/ajaykedia1992/NameEntityRecognition/blob/master/SentencesRepresentation.png?raw=true)
