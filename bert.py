@@ -11,24 +11,7 @@ from keras.models import Model, Input
 from keras.layers.merge import add
 from keras.layers import LSTM, Embedding, Dense, TimeDistributed, Dropout, Bidirectional, Lambda
 from seqeval.metrics import precision_score, recall_score, f1_score, classification_report
-plt.style.use("ggplot")
 
-data = pd.read_csv('train.csv', encoding = 'utf8')
-data = data.drop(['POS'], axis =1)
-data = data.fillna(method="ffill")
-data.tail(12)
-
-
-# Total Number of words count
-words = set(list(data['Word'].values))
-words.add('PADword')
-n_words = len(words)
-print("Total number of words = " + str(n_words))
-
-# Total Number of tags count
-tags = list(set(data["Tag"].values))
-n_tags = len(tags)
-print("Total number of tags = " + str(n_tags))
 
 class sentenceGetter:
     '''
@@ -50,24 +33,35 @@ class sentenceGetter:
         except:
             return None
 
+    def wordTag(self):
+        words = set(list(self.data['Word'].values))
+        words.add('PADword')
+        tags = list(set(self.data["Tag"].values))
+        return words, tags, len(words), len(tags)
+
+    def find_largest_sentence(self):
+        # Largest sentence Length
+        largest_sen = max(len(sen) for sen in self.sentences)
+        print('biggest sentence has {} words'.format(largest_sen))
+
+    def plot_sentence_based_on_length(self):
+        # Distribution of the length of the sentences
+        plt.style.use("ggplot")
+        plt.hist([len(sen) for sen in sentences], bins=50)
+        plt.show()
+
+
+data = pd.read_csv('train.csv', encoding='utf8')
+data = data.drop(['POS'], axis=1)
+data = data.fillna(method="ffill")
 
 # calling sentenceGetter class and get_next function
 getter = sentenceGetter(data)
 sent = getter.get_next()
-
-print(sent)
-
-# Total Number of sentences
+words, tags, n_words, n_tags = getter.wordTag()
 sentences = getter.sentences
-print(len(sentences))
-
-# Largest sentence Length
-largest_sen = max(len(sen) for sen in sentences)
-print('biggest sentence has {} words'.format(largest_sen))
-
-# Distribution of the length of the sentences
-#plt.hist([len(sen) for sen in sentences], bins=50)
-#plt.show()
+largest_sen = getter.find_largest_sentence()
+getter.plot_sentence_based_on_length()
 
 # The longest sentence has 140 words in it and we can see that almost all of the sentences have less than 60 words in them.
 
