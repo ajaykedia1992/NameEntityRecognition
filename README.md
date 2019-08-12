@@ -285,24 +285,23 @@ Aggregate_Biotic_Abiotic_Entity       0.71      0.74      0.73       133
 
 ```
 
-I also run above code on my test dataset which can be further optimized if we increase the epoch or try other encoding and feature engineering on the top of it.
+I also run above code on my test dataset which got me a good result out of it.
 
 ```python
-                                 precision    recall  f1-score   support
+                               precision    recall  f1-score   support
 
-Aggregate_Biotic_Abiotic_Entity       0.01      0.05      0.02       110
-                       Location       0.00      0.00      0.00       209
-                           Time       0.12      0.09      0.10        86
-                           Unit       0.23      0.00      0.01      2533
-                  Biotic_Entity       0.05      0.21      0.09       276
-                              P       0.00      0.00      0.00       309
-                    Eventuality       0.69      0.75      0.72      1018
-                          Value       0.62      0.29      0.40       220
-                        Quality       0.44      0.14      0.22      1282
-                 Abiotic_Entity       0.00      0.00      0.00       145
+                           Time       0.38      0.34      0.36        68
+                  Biotic_Entity       0.73      0.80      0.77      1058
+                    Eventuality       0.73      0.73      0.73      1020
+                 Abiotic_Entity       0.73      0.63      0.67        89
+                        Quality       0.57      0.55      0.56       390
+Aggregate_Biotic_Abiotic_Entity       0.71      0.60      0.65       316
+                           Unit       0.95      0.88      0.91        41
+                          Value       0.80      0.74      0.77        81
+                       Location       0.60      0.65      0.63        23
 
-                      micro avg       0.33      0.18      0.23      6188
-                      macro avg       0.33      0.18      0.19      6188
+                      micro avg       0.71      0.71      0.71      3086
+                      macro avg       0.71      0.71      0.71      3086
 ```
 
 ## Result and Future Work
