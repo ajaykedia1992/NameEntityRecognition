@@ -285,6 +285,26 @@ Aggregate_Biotic_Abiotic_Entity       0.71      0.74      0.73       133
 
 ```
 
+I also run above code on my test dataset which can be further optimized if we increase the epoch or try other encoding and feature engineering on the top of it.
+
+```python
+                                 precision    recall  f1-score   support
+
+Aggregate_Biotic_Abiotic_Entity       0.01      0.05      0.02       110
+                       Location       0.00      0.00      0.00       209
+                           Time       0.12      0.09      0.10        86
+                           Unit       0.23      0.00      0.01      2533
+                  Biotic_Entity       0.05      0.21      0.09       276
+                              P       0.00      0.00      0.00       309
+                    Eventuality       0.69      0.75      0.72      1018
+                          Value       0.62      0.29      0.40       220
+                        Quality       0.44      0.14      0.22      1282
+                 Abiotic_Entity       0.00      0.00      0.00       145
+
+                      micro avg       0.33      0.18      0.23      6188
+                      macro avg       0.33      0.18      0.19      6188
+```
+
 ## Result and Future Work
 0.76 F1 score is an good achievement on a small dataset and based on 3 epochs but it can be further increased by increasing epochs and using different pre-training model, feature engineering, word embedding and many more. Also, 
 
